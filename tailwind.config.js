@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: "Montserrat, sans-serif",
+      },
       colors: {
         apricot: "#F4A27E",
         "colonial-white": "#FFE6AB",
