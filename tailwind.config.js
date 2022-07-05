@@ -2,6 +2,13 @@
 module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
+    screens: {
+      xxs: "360px",
+      xs: "480px",
+      sm: "640px",
+      md: "768px",
+      lg: "1000px",
+    },
     extend: {
       fontFamily: {
         sans: "Montserrat, sans-serif",
