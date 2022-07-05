@@ -15,6 +15,7 @@ module.exports = {
       },
       colors: {
         apricot: "#F4A27E",
+        "apricot-peach": "#F9C29D",
         "colonial-white": "#FFE6AB",
         charade: "#0D0D0E",
         "outer-space": "#1F282C",
