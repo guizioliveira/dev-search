@@ -15,14 +15,14 @@ export const SearchBar = () => {
           <div className="group relative">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 md:pl-8">
               <MagnifyingGlass
-                className="h-6 w-6 text-oslo-gray group-focus-within:text-apricot md:h-[35px] md:w-[35px]"
+                className="h-6 w-6 text-oslo-gray transition-colors group-focus-within:text-apricot md:h-[35px] md:w-[35px]"
                 weight="bold"
               />
             </div>
             <input
               type="search"
               id="search"
-              className="block h-[60px] w-full rounded-2xl bg-gallery p-4 pl-14 pr-2 text-xs font-bold text-outer-space shadow-[0_0_10px_6px_rgba(0,0,0,0.24)] focus-within:outline-none focus-within:placeholder:text-apricot md:h-[70px] md:pl-24 md:text-lg"
+              className="block h-[60px] w-full rounded-2xl bg-gallery p-4 pl-14 pr-2 text-xs font-bold text-outer-space shadow-[0_0_10px_6px_rgba(0,0,0,0.24)] transition-colors focus-within:outline-none focus-within:placeholder:text-apricot md:h-[70px] md:pl-24 md:text-lg"
               placeholder="Search github username..."
             />
             <button
