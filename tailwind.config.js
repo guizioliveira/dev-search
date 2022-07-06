@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: "Montserrat, sans-serif",
+        roboto: "Roboto, sans-serif",
       },
       colors: {
         apricot: "#F4A27E",

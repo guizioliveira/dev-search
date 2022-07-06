@@ -1,3 +1,4 @@
+import { Card } from "./components/Card";
 import { Header } from "./components/Header";
 import { SearchBar } from "./components/SearchBar";
 
@@ -6,7 +7,7 @@ function App() {
     <>
       <Header />
       <SearchBar />
-      <h1>Hello World</h1>;
+      <Card />
     </>
   );
 }
