@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { GithubLogo, MapPin, Buildings } from "phosphor-react";
 import { RepositoryCard } from "./Repository";
-import { GithubUser } from "../types";
+import { GithubUser, Repository } from "../types";
 import { formatter, dateFormatter } from "../lib/formaters";
 
 interface CardProps {
   user: GithubUser;
+  setOpenModal: () => void;
+  setRepository: React.Dispatch<Repository>;
 }
 
-export const Card = ({ user }: CardProps) => {
+export const Card = ({ user, setOpenModal, setRepository }: CardProps) => {
   const [currentTab, setCurrentTab] = useState<string>("overview");
 
   function handleTabs(event: React.MouseEvent<HTMLButtonElement>) {
     setCurrentTab(event.currentTarget.id);
+  }
+
+  function handleSelectRepository(repository: Repository) {
+    setOpenModal();
+    setRepository(repository);
   }
 
   return (
@@ -71,7 +78,11 @@ export const Card = ({ user }: CardProps) => {
         {currentTab === "repositories" ? (
           <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-x-8 md:gap-y-5">
             {user.repositories.map((repository) => (
-              <RepositoryCard repository={repository} key={repository.id} />
+              <RepositoryCard
+                repository={repository}
+                onClick={() => handleSelectRepository(repository)}
+                key={repository.id}
+              />
             ))}
           </div>
         ) : (

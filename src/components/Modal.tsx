@@ -1,22 +1,27 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { Commit } from "./Commit";
 import { Dialog, Transition } from "@headlessui/react";
 import { XCircle } from "phosphor-react";
 import { BranchSelector } from "./BranchSelector";
+import { Repository } from "../types";
 
 interface ModalProps {
   isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<boolean>;
+  repositorySelected: Repository;
 }
 
-export function Modal({ isModalOpen }: ModalProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-
+export function Modal({
+  isModalOpen,
+  setIsModalOpen,
+  repositorySelected,
+}: ModalProps) {
   function openModal() {
-    setIsOpen(true);
+    setIsModalOpen(true);
   }
 
   function closeModal() {
-    setIsOpen(false);
+    setIsModalOpen(false);
   }
   const branches = [{ name: "main" }, { name: "develop" }];
   const commits = [];
@@ -27,7 +32,7 @@ export function Modal({ isModalOpen }: ModalProps) {
 
   return (
     <>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isModalOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -58,13 +63,13 @@ export function Modal({ isModalOpen }: ModalProps) {
                       as="h3"
                       className="w-[90%] text-base font-extrabold text-white md:text-2xl"
                     >
-                      Repository name
+                      {repositorySelected?.name}
                     </Dialog.Title>
                     <Dialog.Description
                       as="span"
                       className="max-w-md text-xs text-white md:text-base"
                     >
-                      Repository description
+                      {repositorySelected?.description}
                     </Dialog.Description>
                     <button
                       className="group absolute top-4 right-4 rounded-full focus-within:outline-none focus-within:ring-2 focus-within:ring-apricot focus-within:ring-opacity-75 focus-within:ring-offset-2 focus-within:ring-offset-outer-space focus:outline-none md:top-6 md:right-6"

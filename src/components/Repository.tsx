@@ -3,11 +3,15 @@ import { BookBookmark, Star } from "phosphor-react";
 
 interface RepositoryProps {
   repository: Repository;
+  onClick: () => void;
 }
 
-export function RepositoryCard({ repository }: RepositoryProps) {
+export function RepositoryCard({ repository, onClick }: RepositoryProps) {
   return (
-    <button className="flex w-full flex-col justify-between rounded-xl bg-gradient-to-r from-outer-space to-charade p-4">
+    <button
+      onClick={onClick}
+      className="flex w-full flex-col justify-between rounded-xl bg-gradient-to-r from-outer-space to-charade p-4"
+    >
       <div className="mb-3 flex w-full justify-between">
         <div className="flex flex-col gap-2 text-left text-white">
           <h4 className="text-sm font-bold">{repository.name}</h4>
