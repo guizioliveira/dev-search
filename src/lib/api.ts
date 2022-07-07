@@ -11,3 +11,7 @@ export async function getGithubUser(user: string) {
   };
   return response;
 }
+
+export async function getRepoBranches(user: string, repo: string) {
+  return axios.get(`${BASE_URL}repos/${user}/${repo}/branches`);
+}

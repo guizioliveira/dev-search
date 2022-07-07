@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { Transition, Listbox } from "@headlessui/react";
 import { CaretCircleDown, Check } from "phosphor-react";
 
@@ -7,7 +7,14 @@ interface BranchSelectorProps {
 }
 
 export function BranchSelector({ branches }: BranchSelectorProps) {
-  const [selectedBranch, setSelectedBranch] = useState(branches[0]);
+  const [selectedBranch, setSelectedBranch] = useState<{ name: string }>();
+
+  useEffect(() => {
+    if (branches !== undefined) {
+      setSelectedBranch(branches[0]);
+    }
+  }, [branches]);
+
   return (
     <>
       <span className="text-sm font-bold text-outer-space md:text-lg">
@@ -17,7 +24,7 @@ export function BranchSelector({ branches }: BranchSelectorProps) {
         <Listbox value={selectedBranch} onChange={setSelectedBranch}>
           <Listbox.Button className="relative w-full rounded-md bg-gallery py-2 px-3 text-left focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-iron">
             <span className="block max-w-[80%] truncate text-sm font-bold text-apricot md:text-base">
-              {selectedBranch.name}
+              {selectedBranch?.name}
             </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2">
               <CaretCircleDown

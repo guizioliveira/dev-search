@@ -4,18 +4,36 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XCircle } from "phosphor-react";
 import { BranchSelector } from "./BranchSelector";
 import { Repository } from "../types";
+import { getRepoBranches } from "../lib/api";
 
 interface ModalProps {
+  username: string;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<boolean>;
   repositorySelected: Repository;
 }
 
 export function Modal({
+  username,
   isModalOpen,
   setIsModalOpen,
   repositorySelected,
 }: ModalProps) {
+  const [branches, setBranches] = useState([]);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      async function getBranches() {
+        const response = await getRepoBranches(
+          username,
+          repositorySelected?.name
+        );
+        setBranches(response.data);
+      }
+      getBranches();
+    }
+  }, [isModalOpen]);
+
   function openModal() {
     setIsModalOpen(true);
   }
@@ -23,7 +41,7 @@ export function Modal({
   function closeModal() {
     setIsModalOpen(false);
   }
-  const branches = [{ name: "main" }, { name: "develop" }];
+
   const commits = [];
 
   for (let i = 0; i < 50; i++) {

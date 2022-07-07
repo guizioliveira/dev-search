@@ -30,6 +30,7 @@ function App() {
         <Hero />
       )}
       <Modal
+        username={githubUser.login}
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         repositorySelected={repositorySelected}
