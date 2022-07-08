@@ -20,3 +20,7 @@ export type Repository = {
   language: string;
   stargazers_count: number;
 };
+
+export type Branch = {
+  name: string;
+};
