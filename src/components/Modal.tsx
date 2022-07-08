@@ -1,34 +1,28 @@
-import { useState, Fragment, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { Commit } from "./Commit";
 import { Dialog, Transition } from "@headlessui/react";
 import { XCircle } from "phosphor-react";
 import { BranchSelector } from "./BranchSelector";
 import { Repository } from "../types";
-import { getRepoBranches } from "../lib/api";
+import { useGithub } from "../hooks/useGithub";
 
 interface ModalProps {
-  username: string;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<boolean>;
   repositorySelected: Repository;
 }
 
 export function Modal({
-  username,
   isModalOpen,
   setIsModalOpen,
   repositorySelected,
 }: ModalProps) {
-  const [branches, setBranches] = useState([]);
+  const { githubUser, branches, getBranchesByRepo } = useGithub();
 
   useEffect(() => {
     if (isModalOpen) {
       async function getBranches() {
-        const response = await getRepoBranches(
-          username,
-          repositorySelected?.name
-        );
-        setBranches(response.data);
+        await getBranchesByRepo(githubUser.login, repositorySelected.name);
       }
       getBranches();
     }

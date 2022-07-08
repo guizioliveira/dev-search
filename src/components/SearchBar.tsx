@@ -1,25 +1,16 @@
 import { useState, FormEvent } from "react";
 import { MagnifyingGlass } from "phosphor-react";
-import { GithubUser } from "../types";
-import { getGithubUser } from "../lib/api";
+import { useGithub } from "../hooks/useGithub";
 
-interface SearchBarProps {
-  setGithubUser: React.Dispatch<GithubUser>;
-}
-
-export const SearchBar = ({ setGithubUser }: SearchBarProps) => {
+export const SearchBar = () => {
   const [userSearch, setUserSearch] = useState<string>("");
+  const { getUser } = useGithub();
 
-  async function fetchGithubUser(user: string) {
-    const data = await getGithubUser(user);
-    setGithubUser(data);
-  }
-
-  function handleSearch(event: FormEvent) {
+  async function handleSearch(event: FormEvent) {
     event.preventDefault();
-    const filtredUser = userSearch.trim();
-    if (filtredUser) {
-      fetchGithubUser(filtredUser);
+    const filteredUser = userSearch.trim();
+    if (filteredUser) {
+      await getUser(filteredUser);
     }
   }
 
