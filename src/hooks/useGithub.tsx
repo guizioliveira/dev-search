@@ -7,6 +7,7 @@ interface GithubContextData {
   getUser: (user: string) => Promise<GithubUser>;
   branches: Branch[];
   getBranchesByRepo: (user: string, repo: string) => Promise<Branch[]>;
+  loading: boolean;
 }
 
 interface GithubProviderProps {
@@ -18,8 +19,10 @@ const GithubContext = createContext<GithubContextData>({} as GithubContextData);
 export function GithubProvider({ children }: GithubProviderProps) {
   const [githubUser, setGithubUser] = useState<GithubUser>({} as GithubUser);
   const [branches, setBranches] = useState<Branch[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   async function getUser(user: string) {
+    setLoading(true);
     try {
       const overview = await api.get(`/users/${user}`);
       const repos = await api.get(`/users/${user}/repos?per_page=100`);
@@ -31,6 +34,7 @@ export function GithubProvider({ children }: GithubProviderProps) {
     } catch (error) {
       console.log("erro");
     }
+    setLoading(false);
     return githubUser;
   }
 
@@ -47,7 +51,7 @@ export function GithubProvider({ children }: GithubProviderProps) {
 
   return (
     <GithubContext.Provider
-      value={{ githubUser, getUser, branches, getBranchesByRepo }}
+      value={{ githubUser, getUser, branches, getBranchesByRepo, loading }}
     >
       {children}
     </GithubContext.Provider>
