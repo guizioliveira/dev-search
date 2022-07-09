@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "./components/Card";
+import { CardSkeleton } from "./components/CardSkeleton";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { Loading } from "./components/Loading";
@@ -23,12 +24,18 @@ function App() {
     <>
       <Header />
       <SearchBar />
-      {loading && <Loading />}
-      {Object.keys(githubUser).length > 0 ? (
-        <Card
-          setOpenModal={handleRepositorySelected}
-          setRepository={setRepositorySelected}
-        />
+      {loading ? (
+        <>
+          <Loading />
+          <CardSkeleton />
+        </>
+      ) : Object.keys(githubUser).length > 0 ? (
+        githubUser.login !== null ? (
+          <Card
+            setOpenModal={handleRepositorySelected}
+            setRepository={setRepositorySelected}
+          />
+        ) : null
       ) : (
         <Hero />
       )}
