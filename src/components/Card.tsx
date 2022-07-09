@@ -33,6 +33,7 @@ export const Card = ({ setOpenModal, setRepository }: CardProps) => {
               src={githubUser.avatar_url}
               alt={`Photo of ${githubUser.name || githubUser.login}`}
             />
+
             <div className="flex w-full flex-col text-outer-space">
               <h3 className="text-base font-extrabold md:text-3xl">
                 {githubUser.name || githubUser.login}
@@ -75,6 +76,7 @@ export const Card = ({ setOpenModal, setRepository }: CardProps) => {
           </button>
         </div>
       </div>
+
       <div className="w-full rounded-b-2xl bg-gallery px-4 py-7 md:px-8">
         {currentTab === "repositories" ? (
           <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-x-8 md:gap-y-5">
@@ -109,10 +111,10 @@ export const Card = ({ setOpenModal, setRepository }: CardProps) => {
               </ul>
             </div>
             <div className="w-full">
-              <p className="m-1.5 text-xs md:m-0 md:text-end md:text-base">
-                {dateFormatter(githubUser.created_at)}
-              </p>
               <ul>
+                <li className="m-1.5 text-xs md:m-0 md:text-end md:text-base">
+                  Joined {dateFormatter(githubUser.created_at)}
+                </li>
                 <li className="mb-2 flex items-center gap-1 text-outer-space">
                   <MapPin className="text-lg md:text-xl" weight="fill" />
                   <span className="text-xs md:text-base">
