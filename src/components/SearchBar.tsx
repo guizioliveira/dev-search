@@ -32,10 +32,10 @@ export const SearchBar = () => {
               />
             </div>
             <input
-              type="search"
+              type="text"
               id="search"
               onChange={(event) => setUserSearch(event.target.value)}
-              className="block h-[60px] w-full rounded-2xl bg-gallery p-4 pl-14 pr-2 text-xs font-bold text-outer-space shadow-[0_0_10px_6px_rgba(0,0,0,0.24)] transition-colors focus-within:outline-none focus-within:placeholder:text-apricot md:h-[70px] md:pl-24 md:text-lg"
+              className="block h-[60px] w-full rounded-2xl bg-gallery p-4 pl-14 pr-24 text-xs font-bold text-outer-space shadow-[0_0_10px_6px_rgba(0,0,0,0.24)] transition-colors focus-within:outline-none focus-within:placeholder:text-apricot md:h-[70px] md:pr-36 md:pl-24 md:text-lg"
               placeholder="Search github username..."
             />
             <button
