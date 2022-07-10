@@ -1,4 +1,4 @@
-import { Repository } from "../types";
+import { Repository } from "../../types";
 import { BookBookmark, Star } from "phosphor-react";
 
 interface RepositoryProps {
