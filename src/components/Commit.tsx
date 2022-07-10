@@ -23,13 +23,13 @@ export const InfoCommit = ({ commit }: InfoCommitProps) => {
           {commit.commit.author.name}
         </p>
       </div>
-      <span className="text-xs text-outer-space md:text-sm">
+      <span className="min-w-[75px] text-xs text-outer-space md:min-w-[90px] md:text-sm">
         {dateFormatter(commit.commit.author.date)}
       </span>
       <a
         href={commit.html_url}
         target="_blank"
-        className="text-xs font-bold text-apricot md:text-sm"
+        className="text-xs font-bold text-apricot md:min-w-[65px] md:text-sm"
       >
         {shortenHash(commit.sha)}
       </a>
