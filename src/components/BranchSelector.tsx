@@ -1,19 +1,41 @@
 import { useState, Fragment, useEffect } from "react";
 import { Transition, Listbox } from "@headlessui/react";
 import { CaretCircleDown, Check } from "phosphor-react";
+import { useGithub } from "../hooks/useGithub";
 
 interface BranchSelectorProps {
-  branches: Array<{ name: string }>;
+  repositoryName: string;
 }
 
-export function BranchSelector({ branches }: BranchSelectorProps) {
+export function BranchSelector({ repositoryName }: BranchSelectorProps) {
   const [selectedBranch, setSelectedBranch] = useState<{ name: string }>();
+  const { githubUser, branches, getBranchesByRepo, getCommitsByBranch } =
+    useGithub();
+
+  useEffect(() => {
+    async function getBranches() {
+      await getBranchesByRepo(githubUser.login, repositoryName);
+    }
+    getBranches();
+  }, []);
 
   useEffect(() => {
     if (branches !== undefined) {
       setSelectedBranch(branches[0]);
     }
   }, [branches]);
+
+  useEffect(() => {
+    async function getCommits() {
+      if (selectedBranch !== undefined)
+        await getCommitsByBranch(
+          githubUser.login,
+          repositoryName,
+          selectedBranch.name
+        );
+    }
+    getCommits();
+  }, [selectedBranch]);
 
   return (
     <>

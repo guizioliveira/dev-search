@@ -24,3 +24,19 @@ export type Repository = {
 export type Branch = {
   name: string;
 };
+
+export type Commit = {
+  sha: string;
+  commit: {
+    message: string;
+    author: {
+      name: string;
+      date: string;
+    };
+  };
+  html_url: string;
+  author: {
+    login: string;
+    avatar_url: string;
+  };
+};

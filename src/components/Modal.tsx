@@ -1,10 +1,11 @@
 import { Fragment, useEffect } from "react";
-import { Commit } from "./Commit";
+import { InfoCommit } from "./Commit";
 import { Dialog, Transition } from "@headlessui/react";
 import { XCircle } from "phosphor-react";
 import { BranchSelector } from "./BranchSelector";
 import { Repository } from "../types";
 import { useGithub } from "../hooks/useGithub";
+import { Loading } from "./Loading";
 
 interface ModalProps {
   isModalOpen: boolean;
@@ -17,29 +18,10 @@ export function Modal({
   setIsModalOpen,
   repositorySelected,
 }: ModalProps) {
-  const { githubUser, branches, getBranchesByRepo } = useGithub();
-
-  useEffect(() => {
-    if (isModalOpen) {
-      async function getBranches() {
-        await getBranchesByRepo(githubUser.login, repositorySelected.name);
-      }
-      getBranches();
-    }
-  }, [isModalOpen]);
-
-  function openModal() {
-    setIsModalOpen(true);
-  }
+  const { commits, loadingCommit } = useGithub();
 
   function closeModal() {
     setIsModalOpen(false);
-  }
-
-  const commits = [];
-
-  for (let i = 0; i < 50; i++) {
-    commits.push(i);
   }
 
   return (
@@ -94,12 +76,16 @@ export function Modal({
                     </button>
                   </div>
                   <div className="w-full bg-iron py-5 px-3 md:px-10">
-                    <BranchSelector branches={branches} />
+                    <BranchSelector repositoryName={repositorySelected.name} />
                   </div>
                   <div className="mb-10 max-h-[500px] w-full overflow-y-auto py-5 px-3 md:p-10">
-                    {commits.map((commit, index) => (
-                      <Commit key={index} />
-                    ))}
+                    {loadingCommit ? (
+                      <Loading />
+                    ) : (
+                      commits.map((commit, index) => (
+                        <InfoCommit commit={commit} key={index} />
+                      ))
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

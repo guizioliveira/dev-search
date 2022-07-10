@@ -1,28 +1,40 @@
 import React from "react";
+import { dateFormatter, shortenHash } from "../common/formaters";
+import { Commit } from "../types";
 
-export const Commit = () => {
+interface InfoCommitProps {
+  commit: Commit;
+}
+
+export const InfoCommit = ({ commit }: InfoCommitProps) => {
   return (
     <div className="flex w-full items-center gap-3 border-b-2 border-iron py-3 px-3 last:border-none md:gap-12 md:px-6">
       <div className="flex items-center md:gap-4">
-        <img
-          className="h-7 w-7 rounded-full"
-          src="https://avatars.githubusercontent.com/u/21250477?v=4"
-          alt="Guilherme de Oliveira"
-        />
-        <p className="hidden text-sm text-outer-space md:inline">
-          Guilherme de Oliveira
+        {commit.author !== null ? (
+          <img
+            className="h-7 w-7 rounded-full"
+            src={commit.author.avatar_url}
+            alt={`Photo of ${commit.commit.author.name}`}
+          />
+        ) : (
+          <div className="h-7 w-7 rounded-full bg-oslo-gray"></div>
+        )}
+        <p className="hidden truncate text-sm text-outer-space md:inline md:w-40">
+          {commit.commit.author.name}
         </p>
       </div>
-      <span className="text-xs text-outer-space md:text-sm">1 Jun 2022</span>
+      <span className="text-xs text-outer-space md:text-sm">
+        {dateFormatter(commit.commit.author.date)}
+      </span>
       <a
-        href=""
+        href={commit.html_url}
         target="_blank"
         className="text-xs font-bold text-apricot md:text-sm"
       >
-        c8be21e
+        {shortenHash(commit.sha)}
       </a>
       <p className="max-w-[100px] truncate text-xs text-outer-space md:max-w-xs md:text-sm">
-        chore: create license
+        {commit.commit.message}
       </p>
     </div>
   );
