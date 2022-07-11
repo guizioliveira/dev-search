@@ -54,7 +54,7 @@ export const CommitList = ({
           <div className="flex w-full items-center justify-center gap-3 p-3 md:gap-1 md:p-10">
             <button
               type="button"
-              className="rounded-md border-2 border-apricot p-2 text-sm font-bold text-apricot transition-colors hover:bg-apricot hover:text-white disabled:bg-lighter disabled:text-apricot disabled:opacity-50 md:text-base"
+              className="rounded-md border-2 border-apricot p-2 text-sm font-bold text-apricot transition-colors hover:bg-apricot hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-lighter disabled:bg-lighter disabled:text-apricot disabled:opacity-50 md:text-base"
               disabled={!pages.prev}
               onClick={() => goToPage(pages.prev)}
             >
@@ -62,7 +62,7 @@ export const CommitList = ({
             </button>
             <button
               type="button"
-              className="rounded-md border-2 border-apricot p-2 text-sm font-bold text-apricot transition-colors hover:bg-apricot hover:text-white disabled:bg-lighter disabled:text-apricot disabled:opacity-50 md:text-base"
+              className="rounded-md border-2 border-apricot p-2 text-sm font-bold text-apricot transition-colors hover:bg-apricot hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-lighter disabled:bg-lighter disabled:text-apricot disabled:opacity-50 md:text-base"
               disabled={!pages.next}
               onClick={() => goToPage(pages.next)}
             >

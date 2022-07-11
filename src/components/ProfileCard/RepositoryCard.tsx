@@ -10,7 +10,7 @@ export function RepositoryCard({ repository, onClick }: RepositoryProps) {
   return (
     <button
       onClick={onClick}
-      className="flex w-full flex-col justify-between rounded-xl bg-gradient-to-r from-outer-space to-charade p-4"
+      className="flex w-full flex-col justify-between rounded-xl bg-gradient-to-r from-outer-space to-charade p-4 focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-apricot focus-visible:ring-opacity-100 focus-visible:ring-offset-2 focus-visible:ring-offset-iron"
     >
       <div className="mb-3 flex w-full justify-between">
         <div className="flex flex-col gap-2 text-left text-white">

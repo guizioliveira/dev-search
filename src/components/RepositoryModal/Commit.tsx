@@ -29,7 +29,7 @@ export const InfoCommit = ({ commit }: InfoCommitProps) => {
       <a
         href={commit.html_url}
         target="_blank"
-        className="text-xs font-bold text-apricot md:min-w-[65px] md:text-sm"
+        className="text-xs font-bold text-apricot hover:text-apricot-peach focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-lighter md:min-w-[65px] md:text-sm"
       >
         {shortenHash(commit.sha)}
       </a>
