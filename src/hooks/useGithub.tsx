@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { api } from "../services/api";
 import { Branch, GithubUser, Commit } from "../types";
@@ -6,13 +7,13 @@ interface GithubContextData {
   githubUser: GithubUser;
   getUser: (user: string) => Promise<void>;
   branches: Branch[];
-  getBranchesByRepo: (user: string, repo: string) => Promise<void>;
+  getBranchesByRepo: (repo: string) => Promise<void>;
   commits: Commit[];
   getCommitsByBranch: (
-    user: string,
     repo: string,
-    branch: string
-  ) => Promise<void>;
+    branch: string,
+    page?: number
+  ) => Promise<{ [key: string]: number }>;
   loadingUser: boolean;
   loadingCommit: boolean;
   userError: UserErrorResponse | undefined;
@@ -23,7 +24,8 @@ interface GithubProviderProps {
 }
 
 interface UserErrorResponse {
-  message: string;
+  status: number | undefined;
+  message: string | undefined;
 }
 
 const GithubContext = createContext<GithubContextData>({} as GithubContextData);
@@ -49,18 +51,25 @@ export function GithubProvider({ children }: GithubProviderProps) {
       setGithubUser(response);
     } catch (error) {
       setGithubUser({} as GithubUser);
-      setUserError({
-        message: `The user "${user}" was not found. Make sure that the github username is correct, or try again later.`,
-      });
+      const err = error as AxiosError;
+      err.response?.status === 404
+        ? setUserError({
+            status: err.response?.status,
+            message: `The user "${user}" was not found. Make sure that the github username is correct, or try again later.`,
+          })
+        : setUserError({
+            status: err.response?.status,
+            message: err.response?.statusText,
+          });
     } finally {
       setLoadingUser(false);
     }
   }
 
-  async function getBranchesByRepo(user: string, repo: string) {
+  async function getBranchesByRepo(repo: string) {
     try {
       await api
-        .get(`/repos/${user}/${repo}/branches`)
+        .get(`/repos/${githubUser.login}/${repo}/branches`)
         .then((response) => setBranches(response.data));
     } catch (error) {
       console.log(error);
@@ -68,20 +77,39 @@ export function GithubProvider({ children }: GithubProviderProps) {
   }
 
   async function getCommitsByBranch(
-    user: string,
     repo: string,
-    branch: string
+    branch: string,
+    page: number = 1
   ) {
     setLoadingCommit(true);
     try {
-      await api
-        .get(`/repos/${user}/${repo}/commits?sha=${branch}&per_page=10`)
-        .then((response) => setCommits(response.data));
+      const response = await api.get(
+        `/repos/${githubUser.login}/${repo}/commits?sha=${branch}&per_page=10&page=${page}`
+      );
+      setCommits(response.data);
+      return parseLinkHeader(response.headers.link);
     } catch (error) {
       console.log(error);
+      return {};
     } finally {
       setLoadingCommit(false);
     }
+  }
+
+  function parseLinkHeader(header: string) {
+    // Split parts by comma
+    const parts = header?.split(",");
+    const links: { [key: string]: number } = {};
+
+    // Parse each part into a named link
+    parts?.forEach((part: string) => {
+      const section = part.split(";");
+      const url = section[0].replace(/<.*page=(.*)>/, "$1").trim();
+      const name = section[1].replace(/rel="(.*)"/, "$1").trim();
+      links[name] = Number(url);
+    });
+
+    return links;
   }
 
   return (
