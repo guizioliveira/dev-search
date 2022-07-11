@@ -27,7 +27,7 @@ export const ProfileCard = ({
   }
 
   return (
-    <div className="container mx-auto mt-8 px-3 md:mt-14 md:px-0">
+    <div className="container mx-auto my-8 px-3 md:my-14 md:px-0">
       <div className="w-full rounded-t-2xl bg-iron px-4 pt-6 md:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:gap-8">
           <div className="flex gap-3 md:items-center md:gap-8">
