@@ -82,15 +82,21 @@ export const ProfileCard = ({
 
       <div className="w-full rounded-b-2xl bg-gallery px-4 py-7 md:px-8">
         {currentTab === "repositories" ? (
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-x-8 md:gap-y-5">
-            {githubUser.repositories.map((repository) => (
-              <RepositoryCard
-                repository={repository}
-                onClick={() => handleSelectRepository(repository)}
-                key={repository.id}
-              />
-            ))}
-          </div>
+          githubUser.repositories.length > 0 ? (
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-x-8 md:gap-y-5">
+              {githubUser.repositories.map((repository) => (
+                <RepositoryCard
+                  repository={repository}
+                  onClick={() => handleSelectRepository(repository)}
+                  key={repository.id}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-sm text-outer-space md:text-base">
+              This user has no public repositories.
+            </p>
+          )
         ) : (
           <Overview />
         )}
