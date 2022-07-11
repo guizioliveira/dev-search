@@ -1,24 +1,24 @@
-import { Fragment, useEffect } from "react";
-import { InfoCommit } from "./Commit";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XCircle } from "phosphor-react";
 import { BranchSelector } from "./BranchSelector";
 import { Repository } from "../types";
-import { useGithub } from "../hooks/useGithub";
-import { Loading } from "./Loading";
+import { CommitList } from "./CommitList";
 
 interface ModalProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<boolean>;
   repositorySelected: Repository;
 }
-
 export function Modal({
   isModalOpen,
   setIsModalOpen,
   repositorySelected,
 }: ModalProps) {
-  const { commits, loadingCommit } = useGithub();
+  const [pages, setPages] = useState<{ [key: string]: number }>({});
+  const [selectedBranch, setSelectedBranch] = useState<{ name: string }>({
+    name: "",
+  });
 
   function closeModal() {
     setIsModalOpen(false);
@@ -51,7 +51,7 @@ export function Modal({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-[975px] transform rounded-xl bg-lighter text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="min-h-[700px] w-full max-w-[975px] transform rounded-xl bg-lighter text-left align-middle shadow-xl transition-all md:min-h-[832px]">
                   <div className="relative -mt-1 w-full rounded-t-xl bg-outer-space py-8 px-3 md:py-14 md:px-10">
                     <Dialog.Title
                       as="h3"
@@ -76,17 +76,18 @@ export function Modal({
                     </button>
                   </div>
                   <div className="w-full bg-iron py-5 px-3 md:px-10">
-                    <BranchSelector repositoryName={repositorySelected.name} />
+                    <BranchSelector
+                      selectedBranch={selectedBranch}
+                      setSelectedBranch={setSelectedBranch}
+                      repositoryName={repositorySelected.name}
+                    />
                   </div>
-                  <div className="mb-10 max-h-[500px] w-full overflow-y-auto py-5 px-3 md:p-10">
-                    {loadingCommit ? (
-                      <Loading />
-                    ) : (
-                      commits.map((commit, index) => (
-                        <InfoCommit commit={commit} key={index} />
-                      ))
-                    )}
-                  </div>
+                  <CommitList
+                    setPages={setPages}
+                    pages={pages}
+                    repositoryName={repositorySelected.name}
+                    selectedBranch={selectedBranch}
+                  />
                 </Dialog.Panel>
               </Transition.Child>
             </div>
