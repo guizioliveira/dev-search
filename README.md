@@ -1,10 +1,16 @@
 # Dev Search - Looking for a Dev?
+<p align="center">
+ <img width="600" src="https://user-images.githubusercontent.com/21250477/178182816-c36175b3-43a7-4442-b354-2a5e3a57badf.png">
+ </p>
 
 ## About the project
 
 In this project, I developed a research application using the [REST API](https://docs.github.com/en/rest) from Github integrated with [ReactJS](https://reactjs.org/) and [Tailwindcss](https://tailwindcss.com/). With it is possible to Find developers, take a look at their repositories, commits history and follow what they are working on.
 
 I tried to be as careful as possible to create an accessible application and for that I use the [Headless UI](https://headlessui.com/) library and keyboard navigation for all the application. In addition, the application is fully responsive and can be accessed on any device.
+
+Before started to code this project, first I developed an initial layout using the figma. With this, I could think about the UX and how to make the design solid for desktop and mobile platforms. You can check the layout [here](https://www.figma.com/file/G7WkxKhXuTcjDJWY02Rmc0/Looking-for-a-Dev%3F?node-id=0%3A1).
+
 
 ## How it works
 
