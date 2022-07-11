@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Header = () => {
   return (
     <div className="h-80 w-full bg-outer-space ">

@@ -1,6 +1,6 @@
 import React from "react";
-import { dateFormatter, shortenHash } from "../common/formaters";
-import { Commit } from "../types";
+import { dateFormatter, shortenHash } from "../../common/formaters";
+import { Commit } from "../../types";
 
 interface InfoCommitProps {
   commit: Commit;

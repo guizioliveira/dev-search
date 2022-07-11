@@ -1,4 +1,3 @@
-import React from "react";
 import { formatter, dateFormatter } from "../../common/formaters";
 import { MapPin, Buildings } from "phosphor-react";
 import { useGithub } from "../../hooks/useGithub";

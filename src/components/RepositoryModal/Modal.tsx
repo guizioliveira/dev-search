@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XCircle } from "phosphor-react";
 import { BranchSelector } from "./BranchSelector";
-import { Repository } from "../types";
+import { Repository } from "../../types";
 import { CommitList } from "./CommitList";
 
 interface ModalProps {

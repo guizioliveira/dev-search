@@ -1,5 +1,3 @@
-import React from "react";
-
 export function Hero() {
   return (
     <div className="container mx-auto mt-4 flex w-full flex-col items-center gap-8 p-6 md:mt-12 md:flex-row md:p-0">

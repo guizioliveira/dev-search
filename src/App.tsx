@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { ProfileCard } from "./components/ProfileCard/index";
-import { Header } from "./components/Header";
-import { Hero } from "./components/Hero";
-import { Modal } from "./components/Modal";
-import { SearchBar } from "./components/SearchBar";
-import { UserNotFound } from "./components/UserNotFound";
+import {
+  Header,
+  Hero,
+  Modal,
+  SearchBar,
+  ProfileCard,
+  CardSkeleton,
+  RequestError,
+} from "./components";
 import { useGithub } from "./hooks/useGithub";
 import { Repository } from "./types";
-import { CardSkeleton } from "./components/ProfileCard/CardSkeleton";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -32,7 +34,7 @@ function App() {
           setRepository={setRepositorySelected}
         />
       ) : userError !== undefined ? (
-        <UserNotFound />
+        <RequestError />
       ) : (
         <Hero />
       )}

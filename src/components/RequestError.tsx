@@ -1,6 +1,6 @@
 import { useGithub } from "../hooks/useGithub";
 
-export const UserNotFound = () => {
+export const RequestError = () => {
   const { userError } = useGithub();
   return (
     <div className="container mx-auto mt-10 w-full px-4 md:px-0">

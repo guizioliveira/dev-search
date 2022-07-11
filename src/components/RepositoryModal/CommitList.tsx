@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useGithub } from "../hooks/useGithub";
+import { useGithub } from "../../hooks/useGithub";
 import { InfoCommit } from "./Commit";
-import { Loading } from "./Loading";
+import { Loading } from "../Loading";
 
 interface CommitListProps {
   pages: { [key: string]: number };

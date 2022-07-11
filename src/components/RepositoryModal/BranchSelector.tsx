@@ -1,7 +1,7 @@
 import { Fragment, useEffect, Dispatch } from "react";
 import { Transition, Listbox } from "@headlessui/react";
 import { CaretCircleDown, Check } from "phosphor-react";
-import { useGithub } from "../hooks/useGithub";
+import { useGithub } from "../../hooks/useGithub";
 
 interface BranchSelectorProps {
   repositoryName: string;
