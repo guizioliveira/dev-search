@@ -59,7 +59,8 @@ export function GithubProvider({ children }: GithubProviderProps) {
           })
         : setUserError({
             status: err.response?.status,
-            message: err.response?.statusText,
+            message:
+              "You are not allowed to access this right now, please try again later.",
           });
     } finally {
       setLoadingUser(false);
@@ -97,11 +98,9 @@ export function GithubProvider({ children }: GithubProviderProps) {
   }
 
   function parseLinkHeader(header: string) {
-    // Split parts by comma
     const parts = header?.split(",");
     const links: { [key: string]: number } = {};
 
-    // Parse each part into a named link
     parts?.forEach((part: string) => {
       const section = part.split(";");
       const url = section[0].replace(/<.*page=(.*)>/, "$1").trim();
