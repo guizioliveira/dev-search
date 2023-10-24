@@ -1,7 +1,7 @@
-import { useGithub } from "../hooks/useGithub";
+import { useGithub } from '../hooks/useGithub'
 
 export const RequestError = () => {
-  const { userError } = useGithub();
+  const { userError } = useGithub()
   return (
     <div className="container mx-auto mt-10 w-full px-4 md:px-0">
       <div className="flex flex-col items-center gap-5">
@@ -15,5 +15,5 @@ export const RequestError = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}

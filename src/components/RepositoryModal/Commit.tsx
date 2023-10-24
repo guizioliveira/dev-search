@@ -1,9 +1,9 @@
-import React from "react";
-import { dateFormatter, shortenHash } from "../../common/formaters";
-import { Commit } from "../../types";
+import React from 'react'
+import { dateFormatter, shortenHash } from '../../common/formaters'
+import { Commit } from '../../types'
 
 interface InfoCommitProps {
-  commit: Commit;
+  commit: Commit
 }
 
 export const InfoCommit = ({ commit }: InfoCommitProps) => {
@@ -17,7 +17,7 @@ export const InfoCommit = ({ commit }: InfoCommitProps) => {
             alt={`Photo of ${commit.commit.author.name}`}
           />
         ) : (
-          <div className="h-7 w-7 rounded-full bg-oslo-gray"></div>
+          <div className="h-7 w-7 rounded-full bg-oslo-gray" />
         )}
         <p className="hidden truncate text-sm text-outer-space md:inline md:w-40">
           {commit.commit.author.name}
@@ -30,6 +30,7 @@ export const InfoCommit = ({ commit }: InfoCommitProps) => {
         href={commit.html_url}
         target="_blank"
         className="text-xs font-bold text-apricot hover:text-apricot-peach focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apricot focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-lighter md:min-w-[65px] md:text-sm"
+        rel="noreferrer"
       >
         {shortenHash(commit.sha)}
       </a>
@@ -37,5 +38,5 @@ export const InfoCommit = ({ commit }: InfoCommitProps) => {
         {commit.commit.message}
       </p>
     </div>
-  );
-};
+  )
+}

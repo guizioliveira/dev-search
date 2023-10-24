@@ -1,12 +1,12 @@
-import { Fragment, useEffect, Dispatch } from "react";
-import { Transition, Listbox } from "@headlessui/react";
-import { CaretCircleDown, Check } from "phosphor-react";
-import { useGithub } from "../../hooks/useGithub";
+import { Fragment, useEffect, Dispatch } from 'react'
+import { Transition, Listbox } from '@headlessui/react'
+import { CaretCircleDown, Check } from 'phosphor-react'
+import { useGithub } from '../../hooks/useGithub'
 
 interface BranchSelectorProps {
-  repositoryName: string;
-  setSelectedBranch: Dispatch<{ name: string }>;
-  selectedBranch: { name: string };
+  repositoryName: string
+  setSelectedBranch: Dispatch<{ name: string }>
+  selectedBranch: { name: string }
 }
 
 export function BranchSelector({
@@ -14,20 +14,20 @@ export function BranchSelector({
   selectedBranch,
   setSelectedBranch,
 }: BranchSelectorProps) {
-  const { branches, getBranchesByRepo } = useGithub();
+  const { branches, getBranchesByRepo } = useGithub()
 
   useEffect(() => {
     async function getBranches() {
-      await getBranchesByRepo(repositoryName);
+      await getBranchesByRepo(repositoryName)
     }
-    getBranches();
-  }, []);
+    getBranches()
+  }, [])
 
   useEffect(() => {
     if (branches !== undefined) {
-      setSelectedBranch(branches[0]);
+      setSelectedBranch(branches[0])
     }
-  }, [branches]);
+  }, [branches])
 
   return (
     <>
@@ -60,7 +60,7 @@ export function BranchSelector({
                   key={index}
                   className={({ active }) =>
                     `relative select-none py-2 pl-7 pr-4 text-sm md:pl-10 md:text-base ${
-                      active ? "bg-oslo-gray text-white" : "text-outer-space"
+                      active ? 'bg-oslo-gray text-white' : 'text-outer-space'
                     }`
                   }
                   value={branch}
@@ -69,7 +69,7 @@ export function BranchSelector({
                     <>
                       <span
                         className={`block cursor-pointer truncate ${
-                          selected ? "font-bold" : "font-normal"
+                          selected ? 'font-bold' : 'font-normal'
                         }`}
                       >
                         {branch.name}
@@ -92,5 +92,5 @@ export function BranchSelector({
         </Listbox>
       </div>
     </>
-  );
+  )
 }

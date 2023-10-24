@@ -1,3 +1,3 @@
-export * from "./Commit";
-export * from "./BranchSelector";
-export * from "./Modal";
+export * from './Commit'
+export * from './BranchSelector'
+export * from './Modal'

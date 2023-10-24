@@ -1,16 +1,16 @@
-import { useState, FormEvent } from "react";
-import { MagnifyingGlass } from "phosphor-react";
-import { useGithub } from "../hooks/useGithub";
+import { useState, FormEvent } from 'react'
+import { MagnifyingGlass } from 'phosphor-react'
+import { useGithub } from '../hooks/useGithub'
 
 export const SearchBar = () => {
-  const [userSearch, setUserSearch] = useState<string>("");
-  const { getUser } = useGithub();
+  const [userSearch, setUserSearch] = useState<string>('')
+  const { getUser } = useGithub()
 
   async function handleSearch(event: FormEvent) {
-    event.preventDefault();
-    const filteredUser = userSearch.trim();
+    event.preventDefault()
+    const filteredUser = userSearch.trim()
     if (filteredUser) {
-      await getUser(filteredUser);
+      await getUser(filteredUser)
     }
   }
 
@@ -49,5 +49,5 @@ export const SearchBar = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}

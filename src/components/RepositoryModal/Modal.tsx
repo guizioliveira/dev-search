@@ -1,27 +1,27 @@
-import { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { XCircle } from "phosphor-react";
-import { BranchSelector } from "./BranchSelector";
-import { Repository } from "../../types";
-import { CommitList } from "./CommitList";
+import { Fragment, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { XCircle } from 'phosphor-react'
+import { BranchSelector } from './BranchSelector'
+import { Repository } from '../../types'
+import { CommitList } from './CommitList'
 
 interface ModalProps {
-  isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<boolean>;
-  repositorySelected: Repository;
+  isModalOpen: boolean
+  setIsModalOpen: React.Dispatch<boolean>
+  repositorySelected: Repository
 }
 export function Modal({
   isModalOpen,
   setIsModalOpen,
   repositorySelected,
 }: ModalProps) {
-  const [pages, setPages] = useState<{ [key: string]: number }>({});
+  const [pages, setPages] = useState<{ [key: string]: number }>({})
   const [selectedBranch, setSelectedBranch] = useState<{ name: string }>({
-    name: "",
-  });
+    name: '',
+  })
 
   function closeModal() {
-    setIsModalOpen(false);
+    setIsModalOpen(false)
   }
 
   return (
@@ -95,5 +95,5 @@ export function Modal({
         </Dialog>
       </Transition>
     </>
-  );
+  )
 }

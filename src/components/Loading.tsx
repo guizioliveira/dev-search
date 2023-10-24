@@ -1,4 +1,4 @@
-import { CircleNotch } from "phosphor-react";
+import { CircleNotch } from 'phosphor-react'
 
 export function Loading() {
   return (
@@ -6,5 +6,5 @@ export function Loading() {
       <CircleNotch size={30} weight="bold" className="animate-spin" />
       Processing...
     </div>
-  );
+  )
 }

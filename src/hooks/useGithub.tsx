@@ -1,57 +1,56 @@
-import { AxiosError } from "axios";
-import { createContext, ReactNode, useContext, useState } from "react";
-import { api } from "../services/api";
-import { Branch, GithubUser, Commit } from "../types";
+import { AxiosError } from 'axios'
+import { createContext, ReactNode, useContext, useState } from 'react'
+import { api } from '../services/api'
+import { Branch, GithubUser, Commit } from '../types'
 
+interface UserErrorResponse {
+  status: number | undefined
+  message: string | undefined
+}
 interface GithubContextData {
-  githubUser: GithubUser;
-  getUser: (user: string) => Promise<void>;
-  branches: Branch[];
-  getBranchesByRepo: (repo: string) => Promise<void>;
-  commits: Commit[];
+  githubUser: GithubUser
+  getUser: (user: string) => Promise<void>
+  branches: Branch[]
+  getBranchesByRepo: (repo: string) => Promise<void>
+  commits: Commit[]
   getCommitsByBranch: (
     repo: string,
     branch: string,
-    page?: number
-  ) => Promise<{ [key: string]: number }>;
-  loadingUser: boolean;
-  loadingCommit: boolean;
-  userError: UserErrorResponse | undefined;
+    page?: number,
+  ) => Promise<{ [key: string]: number }>
+  loadingUser: boolean
+  loadingCommit: boolean
+  userError: UserErrorResponse | undefined
 }
 
 interface GithubProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-interface UserErrorResponse {
-  status: number | undefined;
-  message: string | undefined;
-}
-
-const GithubContext = createContext<GithubContextData>({} as GithubContextData);
+const GithubContext = createContext<GithubContextData>({} as GithubContextData)
 
 export function GithubProvider({ children }: GithubProviderProps) {
-  const [githubUser, setGithubUser] = useState<GithubUser>({} as GithubUser);
-  const [branches, setBranches] = useState<Branch[]>([]);
-  const [commits, setCommits] = useState<Commit[]>([]);
-  const [loadingUser, setLoadingUser] = useState<boolean>(false);
-  const [loadingCommit, setLoadingCommit] = useState<boolean>(false);
-  const [userError, setUserError] = useState<UserErrorResponse | undefined>();
+  const [githubUser, setGithubUser] = useState<GithubUser>({} as GithubUser)
+  const [branches, setBranches] = useState<Branch[]>([])
+  const [commits, setCommits] = useState<Commit[]>([])
+  const [loadingUser, setLoadingUser] = useState<boolean>(false)
+  const [loadingCommit, setLoadingCommit] = useState<boolean>(false)
+  const [userError, setUserError] = useState<UserErrorResponse | undefined>()
 
   async function getUser(user: string) {
-    setLoadingUser(true);
+    setLoadingUser(true)
     try {
-      const overview = await api.get(`/users/${user}`);
-      const repos = await api.get(`/users/${user}/repos?per_page=100`);
+      const overview = await api.get(`/users/${user}`)
+      const repos = await api.get(`/users/${user}/repos?per_page=100`)
       const response = {
         ...overview.data,
         repositories: repos.data,
-      };
-      setUserError(undefined);
-      setGithubUser(response);
+      }
+      setUserError(undefined)
+      setGithubUser(response)
     } catch (error) {
-      setGithubUser({} as GithubUser);
-      const err = error as AxiosError;
+      setGithubUser({} as GithubUser)
+      const err = error as AxiosError
       err.response?.status === 404
         ? setUserError({
             status: err.response?.status,
@@ -60,10 +59,10 @@ export function GithubProvider({ children }: GithubProviderProps) {
         : setUserError({
             status: err.response?.status,
             message:
-              "You are not allowed to access this right now, please try again later.",
-          });
+              'You are not allowed to access this right now, please try again later.',
+          })
     } finally {
-      setLoadingUser(false);
+      setLoadingUser(false)
     }
   }
 
@@ -71,44 +70,40 @@ export function GithubProvider({ children }: GithubProviderProps) {
     try {
       await api
         .get(`/repos/${githubUser.login}/${repo}/branches`)
-        .then((response) => setBranches(response.data));
+        .then((response) => setBranches(response.data))
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
-  async function getCommitsByBranch(
-    repo: string,
-    branch: string,
-    page: number = 1
-  ) {
-    setLoadingCommit(true);
+  async function getCommitsByBranch(repo: string, branch: string, page = 1) {
+    setLoadingCommit(true)
     try {
       const response = await api.get(
-        `/repos/${githubUser.login}/${repo}/commits?sha=${branch}&per_page=10&page=${page}`
-      );
-      setCommits(response.data);
-      return parseLinkHeader(response.headers.link);
+        `/repos/${githubUser.login}/${repo}/commits?sha=${branch}&per_page=10&page=${page}`,
+      )
+      setCommits(response.data)
+      return parseLinkHeader(response.headers.link)
     } catch (error) {
-      console.log(error);
-      return {};
+      console.log(error)
+      return {}
     } finally {
-      setLoadingCommit(false);
+      setLoadingCommit(false)
     }
   }
 
   function parseLinkHeader(header: string) {
-    const parts = header?.split(",");
-    const links: { [key: string]: number } = {};
+    const parts = header?.split(',')
+    const links: { [key: string]: number } = {}
 
     parts?.forEach((part: string) => {
-      const section = part.split(";");
-      const url = section[0].replace(/<.*page=(.*)>/, "$1").trim();
-      const name = section[1].replace(/rel="(.*)"/, "$1").trim();
-      links[name] = Number(url);
-    });
+      const section = part.split(';')
+      const url = section[0].replace(/<.*page=(.*)>/, '$1').trim()
+      const name = section[1].replace(/rel="(.*)"/, '$1').trim()
+      links[name] = Number(url)
+    })
 
-    return links;
+    return links
   }
 
   return (
@@ -127,10 +122,10 @@ export function GithubProvider({ children }: GithubProviderProps) {
     >
       {children}
     </GithubContext.Provider>
-  );
+  )
 }
 
 export function useGithub() {
-  const context = useContext(GithubContext);
-  return context;
+  const context = useContext(GithubContext)
+  return context
 }

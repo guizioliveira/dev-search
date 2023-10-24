@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useGithub } from "../../hooks/useGithub";
-import { InfoCommit } from "./Commit";
-import { Loading } from "../Loading";
+import { useEffect } from 'react'
+import { useGithub } from '../../hooks/useGithub'
+import { InfoCommit } from './Commit'
+import { Loading } from '../Loading'
 
 interface CommitListProps {
-  pages: { [key: string]: number };
-  setPages: React.Dispatch<{ [key: string]: number }>;
-  repositoryName: string;
-  selectedBranch: { name: string };
+  pages: { [key: string]: number }
+  setPages: React.Dispatch<{ [key: string]: number }>
+  repositoryName: string
+  selectedBranch: { name: string }
 }
 
 export const CommitList = ({
@@ -16,15 +16,15 @@ export const CommitList = ({
   repositoryName,
   selectedBranch,
 }: CommitListProps) => {
-  const { commits, loadingCommit, getCommitsByBranch } = useGithub();
+  const { commits, loadingCommit, getCommitsByBranch } = useGithub()
 
   async function goToPage(page: number) {
     const pages = await getCommitsByBranch(
       repositoryName,
       selectedBranch?.name,
-      page
-    );
-    setPages(pages);
+      page,
+    )
+    setPages(pages)
   }
 
   useEffect(() => {
@@ -32,13 +32,13 @@ export const CommitList = ({
       if (selectedBranch !== undefined) {
         const pages = await getCommitsByBranch(
           repositoryName,
-          selectedBranch.name
-        );
-        setPages(pages);
+          selectedBranch.name,
+        )
+        setPages(pages)
       }
     }
-    getCommits();
-  }, [selectedBranch]);
+    getCommits()
+  }, [selectedBranch])
 
   return (
     <>
@@ -72,5 +72,5 @@ export const CommitList = ({
         </>
       )}
     </>
-  );
-};
+  )
+}

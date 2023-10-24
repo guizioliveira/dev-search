@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react'
 import {
   Header,
   Hero,
@@ -7,19 +7,19 @@ import {
   ProfileCard,
   CardSkeleton,
   RequestError,
-} from "./components";
-import { useGithub } from "./hooks/useGithub";
-import { Repository } from "./types";
+} from './components'
+import { useGithub } from './hooks/useGithub'
+import { Repository } from './types'
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { githubUser, loadingUser, userError } = useGithub();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const { githubUser, loadingUser, userError } = useGithub()
   const [repositorySelected, setRepositorySelected] = useState<Repository>(
-    {} as Repository
-  );
+    {} as Repository,
+  )
 
   function handleRepositorySelected() {
-    setIsModalOpen(true);
+    setIsModalOpen(true)
   }
 
   return (
@@ -44,7 +44,7 @@ function App() {
         repositorySelected={repositorySelected}
       />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

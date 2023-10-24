@@ -11,10 +11,10 @@ export function Hero() {
           Take a look at what the devs are up to!
         </h1>
         <p className="text-sm text-outer-space md:text-base">
-          Just search the developer's <strong>github</strong> to find their
+          Just search the developer&apos;s <strong>github</strong> to find their
           repositories and check their latest updates.
         </p>
       </div>
     </div>
-  );
+  )
 }

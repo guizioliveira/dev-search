@@ -1,9 +1,9 @@
-import { formatter, dateFormatter } from "../../common/formaters";
-import { MapPin, Buildings } from "phosphor-react";
-import { useGithub } from "../../hooks/useGithub";
+import { formatter, dateFormatter } from '../../common/formaters'
+import { MapPin, Buildings } from 'phosphor-react'
+import { useGithub } from '../../hooks/useGithub'
 
 export const Overview = () => {
-  const { githubUser } = useGithub();
+  const { githubUser } = useGithub()
 
   return (
     <div className="flex flex-col items-end gap-5 md:flex-row">
@@ -47,5 +47,5 @@ export const Overview = () => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}

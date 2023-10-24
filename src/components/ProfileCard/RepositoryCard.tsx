@@ -1,9 +1,9 @@
-import { Repository } from "../../types";
-import { BookBookmark, Star } from "phosphor-react";
+import { Repository } from '../../types'
+import { BookBookmark, Star } from 'phosphor-react'
 
 interface RepositoryProps {
-  repository: Repository;
-  onClick: () => void;
+  repository: Repository
+  onClick: () => void
 }
 
 export function RepositoryCard({ repository, onClick }: RepositoryProps) {
@@ -33,5 +33,5 @@ export function RepositoryCard({ repository, onClick }: RepositoryProps) {
         </div>
       </div>
     </button>
-  );
+  )
 }

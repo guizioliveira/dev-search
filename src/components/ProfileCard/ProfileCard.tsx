@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { GithubLogo } from "phosphor-react";
-import { RepositoryCard } from "./RepositoryCard";
-import { Repository } from "../../types";
-import { useGithub } from "../../hooks/useGithub";
-import { Overview } from "./Overview";
+import React, { useState } from 'react'
+import { GithubLogo } from 'phosphor-react'
+import { RepositoryCard } from './RepositoryCard'
+import { Repository } from '../../types'
+import { useGithub } from '../../hooks/useGithub'
+import { Overview } from './Overview'
 
 interface ProfileCardProps {
-  setOpenModal: () => void;
-  setRepository: React.Dispatch<Repository>;
+  setOpenModal: () => void
+  setRepository: React.Dispatch<Repository>
 }
 
 export const ProfileCard = ({
   setOpenModal,
   setRepository,
 }: ProfileCardProps) => {
-  const [currentTab, setCurrentTab] = useState<string>("overview");
-  const { githubUser } = useGithub();
+  const [currentTab, setCurrentTab] = useState<string>('overview')
+  const { githubUser } = useGithub()
 
   function handleTabs(event: React.MouseEvent<HTMLButtonElement>) {
-    setCurrentTab(event.currentTarget.id);
+    setCurrentTab(event.currentTarget.id)
   }
 
   function handleSelectRepository(repository: Repository) {
-    setRepository(repository);
-    setOpenModal();
+    setRepository(repository)
+    setOpenModal()
   }
 
   return (
@@ -54,8 +54,9 @@ export const ProfileCard = ({
               className="flex items-center justify-center gap-1 rounded-lg bg-apricot px-4 py-2 text-xs font-bold text-white transition-colors focus-within:outline-none focus-within:ring-2 focus-within:ring-apricot focus-within:ring-opacity-75 focus-within:ring-offset-2 focus-within:ring-offset-iron hover:bg-apricot-peach focus:outline-none md:py-3 md:text-base"
               href={githubUser.html_url}
               target="_blank"
+              rel="noreferrer"
             >
-              Github{" "}
+              Github{' '}
               <GithubLogo className="text-base md:text-2xl" weight="bold" />
             </a>
           </div>
@@ -64,7 +65,7 @@ export const ProfileCard = ({
           <button
             id="overview"
             className="text-sm text-outer-space focus-within:outline-none focus-within:ring-2 focus-within:ring-apricot focus-within:ring-opacity-75 focus-within:ring-offset-2 focus-within:ring-offset-iron focus:outline-none disabled:border-b-4 disabled:border-b-apricot disabled:font-bold disabled:text-apricot md:text-base"
-            disabled={currentTab === "overview"}
+            disabled={currentTab === 'overview'}
             onClick={handleTabs}
           >
             Overview
@@ -72,7 +73,7 @@ export const ProfileCard = ({
           <button
             id="repositories"
             className="text-sm text-outer-space focus-within:outline-none focus-within:ring-2 focus-within:ring-apricot focus-within:ring-opacity-75 focus-within:ring-offset-2 focus-within:ring-offset-iron focus:outline-none disabled:border-b-4 disabled:border-b-apricot disabled:font-bold disabled:text-apricot md:text-base"
-            disabled={currentTab === "repositories"}
+            disabled={currentTab === 'repositories'}
             onClick={handleTabs}
           >
             Repositories
@@ -81,7 +82,7 @@ export const ProfileCard = ({
       </div>
 
       <div className="w-full rounded-b-2xl bg-gallery px-4 py-7 md:px-8">
-        {currentTab === "repositories" ? (
+        {currentTab === 'repositories' ? (
           githubUser.repositories.length > 0 ? (
             <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-x-8 md:gap-y-5">
               {githubUser.repositories.map((repository) => (
@@ -102,5 +103,5 @@ export const ProfileCard = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}

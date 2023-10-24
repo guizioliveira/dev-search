@@ -1,2 +1,2 @@
-export { ProfileCard } from "./ProfileCard";
-export { CardSkeleton } from "./CardSkeleton";
+export { ProfileCard } from './ProfileCard'
+export { CardSkeleton } from './CardSkeleton'
