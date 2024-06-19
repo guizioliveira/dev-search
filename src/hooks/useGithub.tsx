@@ -77,15 +77,28 @@ export function GithubProvider({ children }: GithubProviderProps) {
   }
 
   async function getCommitsByBranch(repo: string, branch: string, page = 1) {
+    if (!githubUser?.login) {
+      console.error('GitHub user login is not defined.')
+      setLoadingCommit(false)
+      return {}
+    }
+
     setLoadingCommit(true)
+
     try {
       const response = await api.get(
         `/repos/${githubUser.login}/${repo}/commits?sha=${branch}&per_page=10&page=${page}`,
       )
-      setCommits(response.data)
-      return parseLinkHeader(response.headers.link)
+
+      if (response?.data) {
+        setCommits(response.data)
+        return parseLinkHeader(response.headers.link ?? '')
+      }
+
+      return {}
     } catch (error) {
-      console.log(error)
+      console.error('Error fetching commits:', error)
+
       return {}
     } finally {
       setLoadingCommit(false)
