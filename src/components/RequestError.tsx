@@ -10,9 +10,10 @@ export const RequestError = () => {
           src={`/assets/${userError?.status}.svg`}
           alt="User not found image"
         />
-        <p className="text-center text-sm text-outer-space md:text-base">
-          {userError?.message}
-        </p>
+        <p
+          className="text-center text-sm text-outer-space md:text-base"
+          dangerouslySetInnerHTML={{ __html: userError?.message ?? '' }}
+        />
       </div>
     </div>
   )

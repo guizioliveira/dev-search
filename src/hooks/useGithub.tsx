@@ -54,7 +54,7 @@ export function GithubProvider({ children }: GithubProviderProps) {
       err.response?.status === 404
         ? setUserError({
             status: err.response?.status,
-            message: `The user "${user}" was not found. Make sure that the github username is correct, or try again later.`,
+            message: `The user <b>${user}</b> was not found. Make sure that the github username is correct, or try again later.`,
           })
         : setUserError({
             status: err.response?.status,
