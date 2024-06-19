@@ -7,7 +7,7 @@ export const RequestError = () => {
       <div className="flex flex-col items-center gap-5">
         <img
           className="md:w-2/5"
-          src={`/src/assets/${userError?.status}.svg`}
+          src={`/assets/${userError?.status}.svg`}
           alt="User not found image"
         />
         <p className="text-center text-sm text-outer-space md:text-base">
